@@ -376,6 +376,10 @@
         <span v-if="selfCheckConference">Conference 519 - All Conference Funds: {{conference.c519}}<br /></span>
         <span v-if="selfCheckConference">Conference 520 - All Conference Funds: {{conference.c520}}<br /></span>
 
+        <span v-for="items in this.specialPayments.specialFunds">
+          <span v-if="specialTrue">Special {{items.name}} - {{items.description}}: {{items.value}} <br /></span>
+        </span>
+
         <span v-if="grandTotal>0">Grand Total = ${{grandTotal}}</span>
     </p>
     </div>
@@ -394,6 +398,7 @@
           selfCheckDistrict: false,
           autoCheckConference: false,
           selfCheckConference: false,
+          specialTrue: true,
           personalInformation: {
             gcfa: ``,
             district: `Choose...`,
@@ -438,25 +443,28 @@
             conferenceTotal: 0
           },
           specialPayments: {
-            s130: ``,
-            s136: ``,
-            s131: ``,
-            s133: ``,
-            s137: ``,
-            s132: ``,
-            s135: ``,
-            s137a: ``,
-            s139: ``,
-            s154: ``,
-            s600: ``,
-            s601: ``,
-            s604: ``,
-            s608: ``,
-            s609: ``,
-            s610: ``,
-            s620: ``,
-            s903: ``,
-            s905: ``
+           specialFunds: [ 
+            {name: `s130`, value: 0, description:``},
+            { name: `s136`, value: 0, description: `` }, 
+            { name: `s131`, value: 0, description: `` }, 
+            { name: `s133`, value: 0, description: `` }, 
+            { name: `s137`, value: 0, description: `` },
+            { name: `s132`, value: 0, description: `` }, 
+            { name: `s135`, value: 0, description: `` }, 
+            { name: `s137a`, value: 0, description: `` },
+            { name: `s139`, value: 0, description: `` },
+            { name: `s154`, value: 0, description: `` },
+            { name: `s600`, value: 0, description: `` },
+            { name: `s604`, value: 0, description: `` },
+            { name: `s608`, value: 0, description: `` }, 
+            { name: `s609`, value: 0, description: `` }, 
+            { name: `s610`, value: 0, description: `` }, 
+            { name: `s620`, value: 0, description: `` }, 
+            { name: `s903`, value: 0, description: `` }, 
+            { name: `s905`, value: 0, description: `` },
+            ],
+            specialTotal: 0,
+            
           },
           statesList: ["AK - Alaska",
             "AL - Alabama",
