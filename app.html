@@ -151,7 +151,8 @@
             id="districtAutoAllocation"
             v-on:click="districtAuto()"
             name="districtAllocation"
-            value="districtAuto"
+            value="District Auto"
+            v-model="district.pickedDistrict"
           />
           <label class="form-check-label" for="districtAutoAllocation"
             >Auto</label
@@ -164,7 +165,8 @@
             id="districtSelfAllocation"
             v-on:click="districtSelf()"
             name="districtAllocation"
-            value="districtSelf"
+            value="District Self"
+            v-model="district.pickedDistrict"
           />
           <label class="form-check-label" for="districtSelfAllocation"
             >Self</label
@@ -184,7 +186,8 @@
                   id="conferenceAutoAllocation"
                   v-on:click="conferenceAuto()"
                   name="conferenceAllocation"
-                  value="conferenceAuto"
+                  value="Conference Auto"
+                  v-model="conference.pickedConference"
                 />
                 <label class="form-check-label" for="conferenceAutoAllocation"
                   >Auto</label
@@ -197,7 +200,8 @@
                   id="conferenceSelfAllocation"
                   v-on:click="conferenceSelf()"
                   name="conferenceAllocation"
-                  value="conferenceSelf"
+                  value="Conference Self"
+                  v-model="conference.pickedConference"
                 />
                 <label class="form-check-label" for="conferenceSelfAllocation"
                   >Self</label
@@ -222,6 +226,8 @@
       <span v-if="personalInformation.district!='Choose...'">District: {{personalInformation.district}}<br /></span>
       <span v-if="personalInformation.church!=''">Church: {{personalInformation.church}}<br /></span>
       <span v-if="personalInformation.pastorsName!=''">Pastors Name: {{personalInformation.pastorsName}}<br /></span>
+      <span v-if="district.pickedDistrict!=''">District Allocation: {{district.pickedDistrict}}<br /></span>
+      <span v-if="conference.pickedConference!=''">Conference Allocation: {{conference.pickedConference}}<br /></span>
     </p>
     </div>
   </div>
@@ -254,12 +260,14 @@
             pastorsName: ``
           },
           district: {
+            pickedDistrict: ``,
             d400: ``,
             d401: ``,
             d402: ``,
             d403: ``
           },
           conference: {
+            pickedConference: ``,
             c501: ``,
             c502: ``,
             c503: ``,
