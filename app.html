@@ -44,7 +44,7 @@
         margin: 0rem !important;
       }
 
-      @media print {
+      /* @media print {
   body {
     visibility: hidden;
   }
@@ -53,15 +53,9 @@
     
   }
 }
-  /* .printOnly {
-    position: absolute;
-    left: 0;
-    top: 0;
-   */
-  
   .border {
     border: solid 1px black;
-  }
+  } */
 
     </style>
 
@@ -386,7 +380,7 @@
 
       <button class="btn btn-primary" v-on:click="exportPdf()">Submit form</button>
       </form>
-    <p id="printOnly">
+    <p>
      <span v-if="personalInformation.firstName!=''">First Name: {{personalInformation.firstName}}<br /></span> 
      <span v-if="personalInformation.lastName!=''">Last Name: {{personalInformation.lastName}}<br /></span> 
      <span v-if="personalInformation.email!=''">Email: {{personalInformation.email}}<br /></span> 
@@ -436,10 +430,11 @@
 
 <!--Print Area-->
 
-<div class="printOnly container .d-print-table">
-      <table class="table" width="700" >
+<div class="container">
+      <table class="table" width="700" height="1000" >
         <tr>
           <td>
+            <h5>Personal Information:</h5>
             <span v-if="personalInformation.firstName!=''">First Name: {{personalInformation.firstName}}</span>
             <span v-if="personalInformation.lastName!=''">Last Name: {{personalInformation.lastName}}<br /></span>
             <span v-if="personalInformation.address!=''">Address: {{personalInformation.address}}<br /></span>
@@ -468,36 +463,8 @@
 
 
       </table>
-        <h5>Personal Information:</h5>
-        
-
-      <div class="col-sm-4" style="background-color:purple;">
-      
-      
-      </div>
-  </div>
-  
-<div class="row">
-    <div class=" col col-lg-6 border" style="background-color:red;">
-  <!-- col 1-->RED
-    </div>
-  <div class=" col col-lg-6 border" style="background-color:green;">
-    <!-- row 1-->GREEN
-  </div>
-  </div>
-  <div class="row">
-    <div class="col col-lg-6 border" style="background-color:yellow;">
-      <!-- col 2-->
-      TEXT
-    </div>
-    <div class="col col-lg-6 border" style="background-color:orange;">
-      <!-- col 2-->
-      TEXT
-    </div>
-  </div>
+       
     
-  
-</div>
 
   </div>
 
