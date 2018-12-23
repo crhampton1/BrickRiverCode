@@ -45,18 +45,24 @@
       }
 
       @media print {
-  body * {
+  body {
     visibility: hidden;
   }
-.printOnly * {
+.printOnly {
     visibility: visible;
+    
   }
-  .printOnly {
+}
+  /* .printOnly {
     position: absolute;
     left: 0;
     top: 0;
+   */
+  
+  .border {
+    border: solid 1px black;
   }
-}
+
     </style>
 
     <div id="app" class="container">
@@ -425,9 +431,90 @@
 
         <span v-if="grandTotal>0">Grand Total = ${{grandTotal}}</span>
     </p>
+    
+
+
+<!--Print Area-->
+
+<div class="printOnly container .d-print-table">
+      <table class="table" width="700" >
+        <tr>
+          <td>
+            <span v-if="personalInformation.firstName!=''">First Name: {{personalInformation.firstName}}</span>
+            <span v-if="personalInformation.lastName!=''">Last Name: {{personalInformation.lastName}}<br /></span>
+            <span v-if="personalInformation.address!=''">Address: {{personalInformation.address}}<br /></span>
+            <span v-if="personalInformation.city!=''">{{personalInformation.city}},</span>
+            <span v-if="personalInformation.state!='Choose...'">{{personalInformation.state}}</span>
+            <span v-if="personalInformation.zip!=''">{{personalInformation.zip}}<br /></span>
+            <span v-if="personalInformation.email!=''">Email: {{personalInformation.email}}</span>
+            <span v-if="personalInformation.dayPhone!=''">Day Phone: {{personalInformation.dayPhone}}<br /><br /></span>
+            <h5>Church Information:</h5>
+            <span v-if="personalInformation.gcfa!=''"><em>GCFA: {{personalInformation.gcfa}}</em></span>
+            <span v-if="personalInformation.district!='Choose...'">District: {{personalInformation.district}}<br /></span>
+            <span v-if="personalInformation.church!=''">Church: {{personalInformation.church}}<br /></span>
+            <span v-if="personalInformation.pastorsName!=''">Pastors Name: {{personalInformation.pastorsName}}</span>
+          </td>
+          <td>
+            <h5>Totals</h5>
+            <span v-if="district.pickedDistrict!=''">{{district.pickedDistrict}}<br /></span>
+            <span v-if="conference.pickedConference!=''">{{conference.pickedConference}}<br /></span>
+            <Span>District: $ {{districtTotal}}<br /></Span>
+            <Span>Conference: $ {{conferenceTotal}}<br /></Span>
+            <Span>Special: $ {{specialTotal}}<br /></Span>
+            <span v-if="grandTotal>0">Grand Total = ${{grandTotal}}</span>
+          
+          </td>
+        </tr>
+
+
+      </table>
+        <h5>Personal Information:</h5>
+        
+
+      <div class="col-sm-4" style="background-color:purple;">
+      
+      
+      </div>
+  </div>
+  
+<div class="row">
+    <div class=" col col-lg-6 border" style="background-color:red;">
+  <!-- col 1-->RED
+    </div>
+  <div class=" col col-lg-6 border" style="background-color:green;">
+    <!-- row 1-->GREEN
+  </div>
+  </div>
+  <div class="row">
+    <div class="col col-lg-6 border" style="background-color:yellow;">
+      <!-- col 2-->
+      TEXT
+    </div>
+    <div class="col col-lg-6 border" style="background-color:orange;">
+      <!-- col 2-->
+      TEXT
     </div>
   </div>
+    
+  
 </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+<!--Print Area Done-->
+
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
