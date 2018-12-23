@@ -43,6 +43,20 @@
       .form-check-input {
         margin: 0rem !important;
       }
+
+      @media print {
+  body * {
+    visibility: hidden;
+  }
+.printOnly * {
+    visibility: visible;
+  }
+  .printOnly {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
     </style>
 
     <div id="app" class="container">
@@ -60,7 +74,7 @@
                 id="inputfirstName4"
                 placeholder="John"
                 v-model="personalInformation.firstName"
-                required
+               
               />
             </div>
             <div class="form-group col-md-6">
@@ -71,18 +85,18 @@
                 id="inputLastName"
                 placeholder="Appleseed"
                 v-model="personalInformation.lastName"
-                required
+                
               />
             </div>
           </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail">Email</label>
-                <input type="email" placeholder="john@applefarm.com" class="form-control" id="inputEmail" v-model="personalInformation.email" required />
+                <input type="email" placeholder="john@applefarm.com" class="form-control" id="inputEmail" v-model="personalInformation.email" />
               </div>
               <div class="form-group col-md-6">
                 <label for="inputDayPhone">Day Phone</label>
-                <input type="tel" class="form-control" id="inputDayPhone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" v-model="personalInformation.dayPhone" required />
+                <input type="tel" class="form-control" id="inputDayPhone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" v-model="personalInformation.dayPhone"  />
               </div>
             </div>
           <div class="form-group">
@@ -93,13 +107,13 @@
               id="inputAddress"
               placeholder="1234 Main St"
               v-model="personalInformation.address"
-              required
+              
             />
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputCity">City</label>
-              <input type="text" class="form-control" placeholder="Applefield" id="inputCity" v-model="personalInformation.city" required/>
+              <input type="text" class="form-control" placeholder="Applefield" id="inputCity" v-model="personalInformation.city" />
             </div>
             <div class="form-group col-md-4">
               <label for="inputState">State</label>
@@ -117,7 +131,7 @@
           <div class="form-row">
             <div class="form-group col-md-5">
               <label for="inputGCFA">GCFA</label>
-              <input type="text" class="form-control" placeholder="5 Digit Number" id="inputGFCA" pattern="^\d{5}$" v-model="personalInformation.gcfa" required />
+              <input type="text" class="form-control" placeholder="5 Digit Number" id="inputGFCA" pattern="^\d{5}$" v-model="personalInformation.gcfa" />
             </div>
             <div class="form-group col-md-5">
               <label for="inputDistrict">District</label>
@@ -135,11 +149,11 @@
             <div class="form-group col-md-6">
               <label for="inputChurch">Church Name</label>
               <input type="text" class="form-control" placeholder="Applefield UMC" id="inputChurch"  v-model="personalInformation.church"
-                required />
+                 />
             </div>
             <div class="form-group col-md-6">
               <label for="inputPastor">Pastors Name</label>
-              <input type="text" class="form-control" id="inputPastor" placeholder="John Jr." v-model="personalInformation.pastorsName" required />
+              <input type="text" class="form-control" id="inputPastor" placeholder="John Jr." v-model="personalInformation.pastorsName"  />
             </div>
           </div>
         
@@ -335,9 +349,38 @@
               
               
               <Span>Total: $ {{conferenceTotal}}</Span></div>
-      <button class="btn btn-primary" type="submit">Submit form</button>
+              </div>
+              <div>
+                <h2>Special Giving?</h2>
+                  <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="specialYes" v-on:click="specialTrueYes()" name="specialGiving"
+                      />
+                    <label class="form-check-label" for="specialGivingYes">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="specialNo" v-on:click="specialTrueNo()" name="specialGiving" />
+                    <label class="form-check-label" for="specialGivingNo">No</label>
+                  </div>
+                  <div v-if="specialTrue">
+                    
+                    <span v-for="items in specialPayments.specialFunds">
+                        <div class="form-group form-group-inline col-md-6">
+                          <label :for="items.name">Special Giving {{items.name}} - {{items.description}}</label>
+                          <input type="number" class="form-control" placeholder="Enter only numbers" :id="items.name" v-model.number="items.value"
+                            required />
+                        </div>
+
+                    </span>
+
+                  </div>
+                  <Span>Total: $ {{specialTotal}}</Span>
+              </div>
+
+                
+
+      <button class="btn btn-primary" v-on:click="exportPdf()">Submit form</button>
       </form>
-    <p>
+    <p id="printOnly">
      <span v-if="personalInformation.firstName!=''">First Name: {{personalInformation.firstName}}<br /></span> 
      <span v-if="personalInformation.lastName!=''">Last Name: {{personalInformation.lastName}}<br /></span> 
      <span v-if="personalInformation.email!=''">Email: {{personalInformation.email}}<br /></span> 
@@ -377,7 +420,7 @@
         <span v-if="selfCheckConference">Conference 520 - All Conference Funds: {{conference.c520}}<br /></span>
 
         <span v-for="items in this.specialPayments.specialFunds">
-          <span v-if="specialTrue">Special {{items.name}} - {{items.description}}: {{items.value}} <br /></span>
+          <span v-if="items.value>0">Special {{items.name}} - {{items.description}}: {{items.value}} <br /></span>
         </span>
 
         <span v-if="grandTotal>0">Grand Total = ${{grandTotal}}</span>
@@ -387,9 +430,9 @@
 </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
 
     <script>
-      const todaysDate = new Date().getDate;
       var app = new Vue({
         el: "#app",
         data: {
@@ -398,7 +441,7 @@
           selfCheckDistrict: false,
           autoCheckConference: false,
           selfCheckConference: false,
-          specialTrue: true,
+          specialTrue: false,
           personalInformation: {
             gcfa: ``,
             district: `Choose...`,
@@ -420,8 +463,7 @@
             d400: 0,
             d401: 0,
             d402: 0,
-            d403: 0,
-            districtTotal: 0
+            d403: 0
           },
           conference: {
             pickedConference: ``,
@@ -566,8 +608,30 @@
             this.autoCheckConference = false;
             this.selfCheckConference = true;
             this.clearConference();
+          },
+          specialTrueYes(){
+            this.specialTrue = true;
+            this.specialPayments.specialFunds.forEach(function (e) { e.value = 0 })
+          },
+          specialTrueNo() {
+            this.specialTrue = false;
+            this.specialPayments.specialFunds.forEach(function (e) { e.value = 0 })
+          },
+          exportPdf(){
+           
+
+          let pdfName = 'test';
+            var doc = new jsPDF();
+            doc.text(this.specialPayments.specialFunds.length, 10, 10);
+            doc.save(pdfName + '.pdf');
+
+
+
+
+
+
           }
-        },
+          },
         computed: {
           districtTotal: function() {
               if(this.district.d400 === "" || this.district.d401 === "" || this.district.d402 === "" || this.district.d403 === "" ){
@@ -580,11 +644,18 @@
             if (this.conference.c500 === "" || this.conference.c501 === "" || this.conference.c502 === "" || this.conference.c503 === ""|| this.conference.c504 === "" || this.conference.c505 === "" || this.conference.c506 === "" || this.conference.c513 === "" || this.conference.c514 === "" || this.conference.c512 === "" || this.conference.c515 === "" || this.conference.c516 === "" || this.conference.c517 === "" || this.conference.c519 === "" || this.conference.c520 === ""){
               return "NOT VALID - Please make sure only numbers are entered above"
             }
-            var conferenceNumber = this.conference.c500 + this.conference.c501 + this.conference.c502 + this.conference.c503 + this.conference.c504 + this.conference.c505 + this.conference.c506 + this.conference.c513 + this.conference.c514 + this.conference.c512 + this.conference.c515 + this.conference.c516 + this.conference.c517 + this.conference.c519 + this.conference.c520
+            var conferenceNumber = 0
+
+            conferenceNumber = this.conference.c500 + this.conference.c501 + this.conference.c502 + this.conference.c503 + this.conference.c504 + this.conference.c505 + this.conference.c506 + this.conference.c513 + this.conference.c514 + this.conference.c512 + this.conference.c515 + this.conference.c516 + this.conference.c517 + this.conference.c519 + this.conference.c520
             return conferenceNumber.toFixed(2)
           },
+          specialTotal: function(){
+            let specialTotalAdd = 0
+            this.specialPayments.specialFunds.forEach(function (e) { specialTotalAdd += Number(e.value) })
+            return specialTotalAdd.toFixed(2)
+          },
           grandTotal: function() {
-            var grand = Number(this.conferenceTotal) + Number(this.districtTotal)
+            var grand = Number(this.conferenceTotal) + Number(this.districtTotal) + Number(this.specialTotal)
             return grand.toFixed(2)
           }
         }
