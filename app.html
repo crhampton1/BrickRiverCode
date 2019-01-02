@@ -8,7 +8,6 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>@\Title</title>
-    
 
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
@@ -35,36 +34,30 @@
       integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
       crossorigin="anonymous"
     ></script>
-
   </head>
   <body>
     <style>
-      
       .form-check-input {
         margin: 0rem !important;
       }
-
-      /* @media print {
-  body {
-    visibility: hidden;
-  }
-.printOnly {
-    visibility: visible;
-    
-  }
-}
-  .border {
-    border: solid 1px black;
-  } */
-
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        .printOnly {
+          visibility: visible;
+        }
+      }
+      .border {
+        border: solid 1px black;
+      }
     </style>
 
     <div id="app" class="container">
-      <form>
-      <div class="allocations">
-        <h2> Your Information</h2>
-       
-          
+      <form onsubmit="return false;">
+        <div class="allocations">
+          <h2>Your Information</h2>
+
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="firstName">First Name</label>
@@ -74,7 +67,6 @@
                 id="inputfirstName4"
                 placeholder="John"
                 v-model="personalInformation.firstName"
-               
               />
             </div>
             <div class="form-group col-md-6">
@@ -85,20 +77,33 @@
                 id="inputLastName"
                 placeholder="Appleseed"
                 v-model="personalInformation.lastName"
-                
+                required="true"
               />
             </div>
           </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputEmail">Email</label>
-                <input type="email" placeholder="john@applefarm.com" class="form-control" id="inputEmail" v-model="personalInformation.email" />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="inputDayPhone">Day Phone</label>
-                <input type="tel" class="form-control" id="inputDayPhone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" v-model="personalInformation.dayPhone"  />
-              </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail">Email</label>
+              <input
+                type="email"
+                placeholder="john@applefarm.com"
+                class="form-control"
+                id="inputEmail"
+                v-model="personalInformation.email"
+              />
             </div>
+            <div class="form-group col-md-6">
+              <label for="inputDayPhone">Day Phone</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="inputDayPhone"
+                placeholder="123-456-7890"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                v-model="personalInformation.dayPhone"
+              />
+            </div>
+          </div>
           <div class="form-group">
             <label for="inputAddress">Address</label>
             <input
@@ -107,381 +112,464 @@
               id="inputAddress"
               placeholder="1234 Main St"
               v-model="personalInformation.address"
-              
             />
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputCity">City</label>
-              <input type="text" class="form-control" placeholder="Applefield" id="inputCity" v-model="personalInformation.city" />
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Applefield"
+                id="inputCity"
+                v-model="personalInformation.city"
+              />
             </div>
             <div class="form-group col-md-4">
               <label for="inputState">State</label>
-              <select id="inputState" class="form-control" v-model="personalInformation.state">
-                <option selected>Choose...</option>
-                <option v-for="item in statesList" :value="item">{{item}}</option>
+              <select
+                id="inputState"
+                class="form-control"
+                v-model="personalInformation.state"
+              >
+                <option selected="true">Choose...</option>
+                <option v-for="item in statesList" :value="item">{{
+                  item
+                }}</option>
               </select>
             </div>
             <div class="form-group col-md-2">
               <label for="inputZip">Zip</label>
-              <input type="text" class="form-control" id="inputZip" placeholder="11111" pattern="^\d{5}$" v-model="personalInformation.zip" />
+              <input
+                type="text"
+                class="form-control"
+                id="inputZip"
+                placeholder="11111"
+                pattern="^\d{5}$"
+                v-model="personalInformation.zip"
+              />
             </div>
           </div>
           <h2>Church Information</h2>
           <div class="form-row">
             <div class="form-group col-md-5">
               <label for="inputGCFA">GCFA</label>
-              <input type="text" class="form-control" placeholder="5 Digit Number" id="inputGFCA" pattern="^\d{5}$" v-model="personalInformation.gcfa" />
+              <input
+                type="number"
+                class="form-control"
+                placeholder="5 Digit Number"
+                id="inputGFCA"
+                pattern="^\d{5}$"
+                v-model="personalInformation.gcfa"
+              />
             </div>
             <div class="form-group col-md-5">
               <label for="inputDistrict">District</label>
-              <select id="inputDistrict" class="form-control" v-model="personalInformation.district">
-                <option selected>Choose...</option>
-                <option v-for="item in districtsList" :value="item">{{item}}</option>
+              <select
+                id="inputDistrict"
+                class="form-control"
+                v-model="personalInformation.district"
+              >
+                <option selected="true">Choose...</option>
+                <option v-for="item in districtsList" :value="item">{{
+                  item
+                }}</option>
               </select>
             </div>
             <div class="form-group col-md-2">
               <label for="inputDate">Today's Date</label>
-              <input type="text" class="form-control-plaintext" id="inputDate" v-model="personalInformation.date" readonly />
+              <input
+                type="text"
+                class="form-control-plaintext"
+                id="inputDate"
+                v-model="personalInformation.date"
+                readonly="true"
+              />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputChurch">Church Name</label>
-              <input type="text" class="form-control" placeholder="Applefield UMC" id="inputChurch"  v-model="personalInformation.church"
-                 />
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Applefield UMC"
+                id="inputChurch"
+                v-model="personalInformation.church"
+              />
             </div>
             <div class="form-group col-md-6">
               <label for="inputPastor">Pastors Name</label>
-              <input type="text" class="form-control" id="inputPastor" placeholder="John Jr." v-model="personalInformation.pastorsName"  />
+              <input
+                type="text"
+                class="form-control"
+                id="inputPastor"
+                placeholder="John Jr."
+                v-model="personalInformation.pastorsName"
+              />
             </div>
           </div>
-        
-        <h2>District Allocation</h2>
-        <div class="form-check form-check-inline">
-          <input
-            type="radio"
-            class="form-check-input"
-            id="districtAutoAllocation"
-            v-on:click="districtAuto()"
-            name="districtAllocation"
-            value="District Auto"
-            v-model="district.pickedDistrict"
-          />
-          <label class="form-check-label" for="districtAutoAllocation"
-            >Auto</label
-          >
-        </div>
-        <div class="form-check form-check-inline">
-          <input
-            type="radio"
-            class="form-check-input"
-            id="districtSelfAllocation"
-            v-on:click="districtSelf()"
-            name="districtAllocation"
-            value="District Self"
-            v-model="district.pickedDistrict"
-          />
-          <label class="form-check-label" for="districtSelfAllocation"
-            >Self</label
-          >
-        </div>
 
-        <div v-if="autoCheckDistrict">
-          <div class="form-group col-md-6">
-            <label for="inputD400">District 400 - All District Funds Amount:</label>
-            <input type="number" class="form-control" placeholder="Enter a number" id="inputD400" v-model.number="district.d400"
-             required />
-        </div>
-
-        <Span>Total: $ {{districtTotal}}</Span>
-        </div>
-
-        <div v-if="selfCheckDistrict">
-          <div class="form-group col-md-6">
-            <label for="inputD401">District 401 - All District Funds Amount:</label>
-            <input type="number" class="form-control" placeholder="Enter only numbers" id="inputD401" v-model.number="district.d401"
-             required />
+          <h2>District Allocation</h2>
+          <div class="form-check form-check-inline">
+            <input
+              type="radio"
+              class="form-check-input"
+              id="districtAutoAllocation"
+              v-on:click="districtAuto()"
+              name="districtAllocation"
+              value="District Auto"
+              v-model="district.pickedDistrict"
+            />
+            <label class="form-check-label" for="districtAutoAllocation"
+              >Auto</label
+            >
           </div>
-          <div class="form-group col-md-6">
-            <label for="inputD402">District 402 - All District Funds Amount:</label>
-            <input type="number" class="form-control" placeholder="Enter only numbers" id="inputD402" v-model.number="district.d402"
-             required />
+          <div class="form-check form-check-inline">
+            <input
+              type="radio"
+              class="form-check-input"
+              id="districtSelfAllocation"
+              v-on:click="districtSelf()"
+              name="districtAllocation"
+              value="District Self"
+              v-model="district.pickedDistrict"
+            />
+            <label class="form-check-label" for="districtSelfAllocation"
+              >Self</label
+            >
           </div>
-          <div class="form-group col-md-6">
-            <label for="inputD403">District 403 - All District Funds Amount:</label>
-            <input type="number" class="form-control" placeholder="Enter only numbers" id="inputD403" v-model.number="district.d403"
-             required />
+
+          <div v-if="autoCheckDistrict">
+            <div class="form-group col-md-6">
+              <label for="inputD400"
+                >District 400 - All District Funds Amount:</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter a number"
+                id="inputD400"
+                v-model.number="district.d400"
+                required="true"
+              />
+            </div>
+
+            <Span>Total: $ {{ districtTotal }}</Span>
           </div>
-        
-          <Span>Total: $ {{districtTotal}}</Span>
-        </div>
-     
-      
 
-            <div class="allocations">
-              <h2>Conference Allocation</h2>
-              <div class="form-check form-check-inline">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="conferenceAutoAllocation"
-                  v-on:click="conferenceAuto()"
-                  name="conferenceAllocation"
-                  value="Conference Auto"
-                  v-model="conference.pickedConference"
-                />
-                <label class="form-check-label" for="conferenceAutoAllocation"
-                  >Auto</label
-                >
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="conferenceSelfAllocation"
-                  v-on:click="conferenceSelf()"
-                  name="conferenceAllocation"
-                  value="Conference Self"
-                  v-model="conference.pickedConference"
-                />
-                <label class="form-check-label" for="conferenceSelfAllocation"
-                  >Self</label
-                >
-              </div>
+          <div v-if="selfCheckDistrict">
+            <div class="form-group col-md-6">
+              <label for="inputD401"
+                >District 401 - All District Funds Amount:</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter only numbers"
+                id="inputD401"
+                v-model.number="district.d401"
+                required="true"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputD402"
+                >District 402 - All District Funds Amount:</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter only numbers"
+                id="inputD402"
+                v-model.number="district.d402"
+                required="true"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputD403"
+                >District 403 - All District Funds Amount:</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter only numbers"
+                id="inputD403"
+                v-model.number="district.d403"
+                required="true"
+              />
+            </div>
 
-              <div v-if="autoCheckConference"> 
-                <div class="form-group col-md-6">
+            <Span>Total: $ {{ districtTotal }}</Span>
+          </div>
+
+          <div class="allocations">
+            <h2>Conference Allocation</h2>
+            <div class="form-check form-check-inline">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="conferenceAutoAllocation"
+                v-on:click="conferenceAuto()"
+                name="conferenceAllocation"
+                value="Conference Auto"
+                v-model="conference.pickedConference"
+              />
+              <label class="form-check-label" for="conferenceAutoAllocation"
+                >Auto</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="conferenceSelfAllocation"
+                v-on:click="conferenceSelf()"
+                name="conferenceAllocation"
+                value="Conference Self"
+                v-model="conference.pickedConference"
+              />
+              <label class="form-check-label" for="conferenceSelfAllocation"
+                >Self</label
+              >
+            </div>
+
+            <div v-if="autoCheckConference">
+              <div class="form-group col-md-6">
                 <label for="inputc500">Conference 500: Funds Amount:</label>
-                <input type="number" class="form-control" placeholder="Enter a number" id="inputc500" v-model.number="conference.c500"
-                  required />
-              </div>
-              
-              <Span>Total: $ {{conferenceTotal}}</Span></div>
-
-              <div v-if="selfCheckConference">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label for="inputC501">Conference 501 - All District Funds Amount:</label>
-                      <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC501" v-model.number="conference.c501"
-                        required />
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputC502">Conference 502 - All District Funds Amount:</label>
-                      <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC502" v-model.number="conference.c502"
-                        required />
-                    </div>
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputC401">Conference 503 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC503" v-model.number="conference.c503"
-                      required />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputC402">Conference 504 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC504" v-model.number="conference.c504"
-                      required />
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputC401">Conference 505 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC505" v-model.number="conference.c505"
-                      required />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputC402">Conference 506 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC506" v-model.number="conference.c506"
-                      required />
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputC401">Conference 513 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC513" v-model.number="conference.c513"
-                      required />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputC402">Conference 514 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC514" v-model.number="conference.c514"
-                      required />
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputC401">Conference 512 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC512" v-model.number="conference.c512"
-                      required />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputC402">Conference 515 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC515" v-model.number="conference.c515"
-                      required />
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputC401">Conference 516 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC516" v-model.number="conference.c516"
-                      required />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputC402">Conference 517 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC517" v-model.number="conference.c517"
-                      required />
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputC401">Conference 519 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC519" v-model.number="conference.c519"
-                      required />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputC402">Conference 520 - All District Funds Amount:</label>
-                    <input type="number" class="form-control" placeholder="Enter only numbers" id="inputC520" v-model.number="conference.c520"
-                      required />
-                  </div>
-                </div>
-                
-              
-              
-              <Span>Total: $ {{conferenceTotal}}</Span></div>
-              </div>
-              <div>
-                <h2>Special Giving?</h2>
-                  <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" id="specialYes" v-on:click="specialTrueYes()" name="specialGiving"
-                      />
-                    <label class="form-check-label" for="specialGivingYes">Yes</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" id="specialNo" v-on:click="specialTrueNo()" name="specialGiving" />
-                    <label class="form-check-label" for="specialGivingNo">No</label>
-                  </div>
-                  <div v-if="specialTrue">
-                    
-                    <span v-for="items in specialPayments.specialFunds">
-                        <div class="form-group form-group-inline col-md-6">
-                          <label :for="items.name">Special Giving {{items.name}} - {{items.description}}</label>
-                          <input type="number" class="form-control" placeholder="Enter only numbers" :id="items.name" v-model.number="items.value"
-                            required />
-                        </div>
-
-                    </span>
-
-                  </div>
-                  <Span>Total: $ {{specialTotal}}</Span>
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter a number"
+                  id="inputc500"
+                  v-model.number="conference.c500"
+                  required="true"
+                />
               </div>
 
-                
+              <Span>Total: $ {{ conferenceTotal }}</Span>
+            </div>
 
-      <button class="btn btn-primary" v-on:click="exportPdf()">Submit form</button>
+            <div v-if="selfCheckConference">
+              <div class="form-row">
+                <span v-for="items in conference.conferenceFunds">
+                  <div class="form-group form-group-inline col-md-6">
+                    <label :for="items.name"
+                      >Conference Funds: {{ items.name }} -
+                      {{ items.description }}</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Enter only numbers"
+                      :id="items.name"
+                      v-model.number="items.value"
+                      required="true"
+                    />
+                  </div>
+                </span>
+              </div>
+            </div>
+
+            <Span>Total: $ {{ conferenceTotal }}</Span>
+          </div>
+          <div>
+            <h2>Special Giving?</h2>
+            <div class="form-check form-check-inline">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="specialYes"
+                v-on:click="specialTrueYes()"
+                name="specialGiving"
+              />
+              <label class="form-check-label" for="specialGivingYes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                type="radio"
+                class="form-check-input"
+                id="specialNo"
+                v-on:click="specialTrueNo()"
+                name="specialGiving"
+              />
+              <label class="form-check-label" for="specialGivingNo">No</label>
+            </div>
+            <div v-if="specialTrue">
+              <span v-for="items in specialPayments.specialFunds">
+                <div class="form-group form-group-inline col-md-6">
+                  <label :for="items.name"
+                    >Special Giving {{ items.name }} - {{ items.description }}
+                    <span v-if="items.name == `other`"
+                      ><input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter other description"
+                        id="descOther"
+                        v-model="items.description"/></span
+                  ></label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Enter only numbers"
+                    :id="items.name"
+                    v-model.number="items.value"
+                    required
+                  />
+                </div>
+              </span>
+            </div>
+            <Span>Total: $ {{ specialTotal }}</Span>
+          </div>
+
+          <button class="btn btn-primary" v-on:click="exportPdf()">
+            Submit form
+          </button>
+
+          <p>
+            <span v-if="personalInformation.firstName!=''"
+              >First Name: {{ personalInformation.firstName }}<br
+            /></span>
+            <span v-if="personalInformation.lastName!=''"
+              >Last Name: {{ personalInformation.lastName }}<br
+            /></span>
+            <span v-if="personalInformation.email!=''"
+              >Email: {{ personalInformation.email }}<br
+            /></span>
+            <span v-if="personalInformation.dayPhone!=''"
+              >Day Phone: {{ personalInformation.dayPhone }}<br
+            /></span>
+            <span v-if="personalInformation.address!=''"
+              >Address: {{ personalInformation.address }}<br
+            /></span>
+            <span v-if="personalInformation.city!=''"
+              >City: {{ personalInformation.city }}<br
+            /></span>
+            <span v-if="personalInformation.state!='Choose...'"
+              >State: {{ personalInformation.state }}<br
+            /></span>
+            <span v-if="personalInformation.zip!=''"
+              >Zip: {{ personalInformation.zip }}<br
+            /></span>
+            <span v-if="personalInformation.gcfa!=''"
+              >GCFA: {{ personalInformation.gcfa }}<br
+            /></span>
+            <span v-if="personalInformation.district!='Choose...'"
+              >District: {{ personalInformation.district }}<br
+            /></span>
+            <span v-if="personalInformation.church!=''"
+              >Church: {{ personalInformation.church }}<br
+            /></span>
+            <span v-if="personalInformation.pastorsName!=''"
+              >Pastors Name: {{ personalInformation.pastorsName }}<br
+            /></span>
+
+            <span v-if="district.pickedDistrict!=''"
+              >District Allocation: {{ district.pickedDistrict }}<br
+            /></span>
+            <span v-if="autoCheckDistrict"
+              >District 400 - All District Funds: {{ district.d400 }}<br
+            /></span>
+            <span v-if="selfCheckDistrict"
+              >District 401 - All District Funds: {{ district.d401 }}<br
+            /></span>
+            <span v-if="selfCheckDistrict"
+              >District 402 - All District Funds: {{ district.d402 }}<br
+            /></span>
+            <span v-if="selfCheckDistrict"
+              >District 403 - All District Funds: {{ district.d403 }}<br
+            /></span>
+
+            <span v-if="conference.pickedConference!=''"
+              >Conference Allocation: {{ conference.pickedConference }}<br
+            /></span>
+
+            <span v-if="autoCheckConference"
+              >Conference 500 - All Conference Funds: {{ conference.c500 }}<br
+            /></span>
+
+            <span v-for="items in this.conference.conferenceFunds">
+              <span v-if="items.value>0"
+                >Conference {{ items.name }} - {{ items.description }}:
+                {{ items.value }} <br
+              /></span>
+            </span>
+
+            <span v-for="items in this.specialPayments.specialFunds">
+              <span v-if="items.value>0"
+                >Special {{ items.name }} - {{ items.description }}:
+                {{ items.value }} <br
+              /></span>
+            </span>
+
+            <span v-if="grandTotal>0">Grand Total = ${{ grandTotal }}</span>
+          </p>
+        </div>
       </form>
-    <p>
-     <span v-if="personalInformation.firstName!=''">First Name: {{personalInformation.firstName}}<br /></span> 
-     <span v-if="personalInformation.lastName!=''">Last Name: {{personalInformation.lastName}}<br /></span> 
-     <span v-if="personalInformation.email!=''">Email: {{personalInformation.email}}<br /></span> 
-     <span v-if="personalInformation.dayPhone!=''">Day Phone: {{personalInformation.dayPhone}}<br /></span>
-      <span v-if="personalInformation.address!=''">Address: {{personalInformation.address}}<br /></span>
-      <span v-if="personalInformation.city!=''">City: {{personalInformation.city}}<br /></span>
-      <span v-if="personalInformation.state!='Choose...'">State: {{personalInformation.state}}<br /></span>
-      <span v-if="personalInformation.zip!=''">Zip: {{personalInformation.zip}}<br /></span>
-      <span v-if="personalInformation.gcfa!=''">GCFA: {{personalInformation.gcfa}}<br /></span>
-      <span v-if="personalInformation.district!='Choose...'">District: {{personalInformation.district}}<br /></span>
-      <span v-if="personalInformation.church!=''">Church: {{personalInformation.church}}<br /></span>
-      <span v-if="personalInformation.pastorsName!=''">Pastors Name: {{personalInformation.pastorsName}}<br /></span>
 
-      <span v-if="district.pickedDistrict!=''">District Allocation: {{district.pickedDistrict}}<br /></span>
-       <span v-if="autoCheckDistrict">District 400 - All District Funds: {{district.d400}}<br /></span>
-      <span v-if="selfCheckDistrict">District 401 - All District Funds: {{district.d401}}<br /></span>
-      <span v-if="selfCheckDistrict">District 402 - All District Funds: {{district.d402}}<br /></span>
-      <span v-if="selfCheckDistrict">District 403 - All District Funds: {{district.d403}}<br /></span>
+      <!--Print Area-->
 
-      <span v-if="conference.pickedConference!=''">Conference Allocation: {{conference.pickedConference}}<br /></span>
+      <div class="container" id="printOnly">
+        <table class="table" width="700" height="1000">
+          <tr>
+            <td>
+              <h5>Personal Information:</h5>
+              <span v-if="personalInformation.firstName!=''"
+                >First Name: {{ personalInformation.firstName }}</span
+              >
+              <span v-if="personalInformation.lastName!=''"
+                >Last Name: {{ personalInformation.lastName }}<br
+              /></span>
+              <span v-if="personalInformation.address!=''"
+                >Address: {{ personalInformation.address }}<br
+              /></span>
+              <span v-if="personalInformation.city!=''"
+                >{{ personalInformation.city }},</span
+              >
+              <span v-if="personalInformation.state!='Choose...'">{{
+                personalInformation.state
+              }}</span>
+              <span v-if="personalInformation.zip!=''"
+                >{{ personalInformation.zip }}<br
+              /></span>
+              <span v-if="personalInformation.email!=''"
+                >Email: {{ personalInformation.email }}</span
+              >
+              <span v-if="personalInformation.dayPhone!=''"
+                >Day Phone: {{ personalInformation.dayPhone }}<br /><br
+              /></span>
+              <h5>Church Information:</h5>
+              <span v-if="personalInformation.gcfa!=''"
+                ><em>GCFA: {{ personalInformation.gcfa }}</em></span
+              >
+              <span v-if="personalInformation.district!='Choose...'"
+                >District: {{ personalInformation.district }}<br
+              /></span>
+              <span v-if="personalInformation.church!=''"
+                >Church: {{ personalInformation.church }}<br
+              /></span>
+              <span v-if="personalInformation.pastorsName!=''"
+                >Pastors Name: {{ personalInformation.pastorsName }}</span
+              >
+            </td>
+            <td>
+              <h5>Totals</h5>
+              <span v-if="district.pickedDistrict!=''"
+                >{{ district.pickedDistrict }}<br
+              /></span>
+              <span v-if="conference.pickedConference!=''"
+                >{{ conference.pickedConference }}<br
+              /></span>
+              <Span>District: $ {{ districtTotal }}<br /></Span>
+              <Span>Conference: $ {{ conferenceTotal }}<br /></Span>
+              <Span>Special: $ {{ specialTotal }}<br /></Span>
+              <span v-if="grandTotal>0">Grand Total = ${{ grandTotal }}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-
-        <span v-if="autoCheckConference">Conference 500 - All Conference Funds: {{conference.c500}}<br /></span>
-        <span v-if="selfCheckConference">Conference 501 - All Conference Funds: {{conference.c501}}<br /></span>
-        <span v-if="selfCheckConference">Conference 502 - All Conference Funds: {{conference.c502}}<br /></span>
-        <span v-if="selfCheckConference">Conference 503 - All Conference Funds: {{conference.c503}}<br /></span>
-        <span v-if="selfCheckConference">Conference 504 - All Conference Funds: {{conference.c504}}<br /></span>
-        <span v-if="selfCheckConference">Conference 505 - All Conference Funds: {{conference.c505}}<br /></span>
-        <span v-if="selfCheckConference">Conference 506 - All Conference Funds: {{conference.c506}}<br /></span>
-        <span v-if="selfCheckConference">Conference 513 - All Conference Funds: {{conference.c513}}<br /></span>
-        <span v-if="selfCheckConference">Conference 514 - All Conference Funds: {{conference.c514}}<br /></span>
-        <span v-if="selfCheckConference">Conference 512 - All Conference Funds: {{conference.c512}}<br /></span>
-        <span v-if="selfCheckConference">Conference 515 - All Conference Funds: {{conference.c515}}<br /></span>
-        <span v-if="selfCheckConference">Conference 516 - All Conference Funds: {{conference.c516}}<br /></span>
-        <span v-if="selfCheckConference">Conference 517 - All Conference Funds: {{conference.c517}}<br /></span>
-        <span v-if="selfCheckConference">Conference 519 - All Conference Funds: {{conference.c519}}<br /></span>
-        <span v-if="selfCheckConference">Conference 520 - All Conference Funds: {{conference.c520}}<br /></span>
-
-        <span v-for="items in this.specialPayments.specialFunds">
-          <span v-if="items.value>0">Special {{items.name}} - {{items.description}}: {{items.value}} <br /></span>
-        </span>
-
-        <span v-if="grandTotal>0">Grand Total = ${{grandTotal}}</span>
-    </p>
-    
-
-
-<!--Print Area-->
-
-<div class="container">
-      <table class="table" width="700" height="1000" >
-        <tr>
-          <td>
-            <h5>Personal Information:</h5>
-            <span v-if="personalInformation.firstName!=''">First Name: {{personalInformation.firstName}}</span>
-            <span v-if="personalInformation.lastName!=''">Last Name: {{personalInformation.lastName}}<br /></span>
-            <span v-if="personalInformation.address!=''">Address: {{personalInformation.address}}<br /></span>
-            <span v-if="personalInformation.city!=''">{{personalInformation.city}},</span>
-            <span v-if="personalInformation.state!='Choose...'">{{personalInformation.state}}</span>
-            <span v-if="personalInformation.zip!=''">{{personalInformation.zip}}<br /></span>
-            <span v-if="personalInformation.email!=''">Email: {{personalInformation.email}}</span>
-            <span v-if="personalInformation.dayPhone!=''">Day Phone: {{personalInformation.dayPhone}}<br /><br /></span>
-            <h5>Church Information:</h5>
-            <span v-if="personalInformation.gcfa!=''"><em>GCFA: {{personalInformation.gcfa}}</em></span>
-            <span v-if="personalInformation.district!='Choose...'">District: {{personalInformation.district}}<br /></span>
-            <span v-if="personalInformation.church!=''">Church: {{personalInformation.church}}<br /></span>
-            <span v-if="personalInformation.pastorsName!=''">Pastors Name: {{personalInformation.pastorsName}}</span>
-          </td>
-          <td>
-            <h5>Totals</h5>
-            <span v-if="district.pickedDistrict!=''">{{district.pickedDistrict}}<br /></span>
-            <span v-if="conference.pickedConference!=''">{{conference.pickedConference}}<br /></span>
-            <Span>District: $ {{districtTotal}}<br /></Span>
-            <Span>Conference: $ {{conferenceTotal}}<br /></Span>
-            <Span>Special: $ {{specialTotal}}<br /></Span>
-            <span v-if="grandTotal>0">Grand Total = ${{grandTotal}}</span>
-          
-          </td>
-        </tr>
-
-
-      </table>
-       
-    
-
-  </div>
-
-
-
-
-
-
-
-
-
-</div>
-
-</div>
-</div>
-<!--Print Area Done-->
-
+    <!--Print Area Done-->
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
@@ -500,7 +588,7 @@
             gcfa: ``,
             district: `Choose...`,
             church: ``,
-            date: new Date().toLocaleString().split(',')[0],
+            date: new Date().toLocaleString().split(",")[0],
             dayPhone: ``,
             email: ``,
             firstName: ``,
@@ -521,48 +609,53 @@
           },
           conference: {
             pickedConference: ``,
+            conferenceFunds: [
+              { name: `c500`, value: 0, description: `` },
+              { name: `c501`, value: 0, description: `` },
+              { name: `c502`, value: 0, description: `` },
+              { name: `s133`, value: 0, description: `` },
+              { name: `c503`, value: 0, description: `` },
+              { name: `c504`, value: 0, description: `` },
+              { name: `c505`, value: 0, description: `` },
+              { name: `c506`, value: 0, description: `` },
+              { name: `c513`, value: 0, description: `` },
+              { name: `c514`, value: 0, description: `` },
+              { name: `c512`, value: 0, description: `` },
+              { name: `c515`, value: 0, description: `` },
+              { name: `c516`, value: 0, description: `` },
+              { name: `c517`, value: 0, description: `` },
+              { name: `c519`, value: 0, description: `` },
+              { name: `c520`, value: 0, description: `` }
+            ],
             c500: 0,
-            c501: 0,
-            c502: 0,
-            c503: 0,
-            c504: 0,
-            c505: 0,
-            c506: 0,
-            c513: 0,
-            c514: 0,
-            c512: 0,
-            c515: 0,
-            c516: 0,
-            c517: 0,
-            c519: 0,
-            c520: 0,
             conferenceTotal: 0
           },
           specialPayments: {
-           specialFunds: [ 
-            {name: `s130`, value: 0, description:``},
-            { name: `s136`, value: 0, description: `` }, 
-            { name: `s131`, value: 0, description: `` }, 
-            { name: `s133`, value: 0, description: `` }, 
-            { name: `s137`, value: 0, description: `` },
-            { name: `s132`, value: 0, description: `` }, 
-            { name: `s135`, value: 0, description: `` }, 
-            { name: `s137a`, value: 0, description: `` },
-            { name: `s139`, value: 0, description: `` },
-            { name: `s154`, value: 0, description: `` },
-            { name: `s600`, value: 0, description: `` },
-            { name: `s604`, value: 0, description: `` },
-            { name: `s608`, value: 0, description: `` }, 
-            { name: `s609`, value: 0, description: `` }, 
-            { name: `s610`, value: 0, description: `` }, 
-            { name: `s620`, value: 0, description: `` }, 
-            { name: `s903`, value: 0, description: `` }, 
-            { name: `s905`, value: 0, description: `` },
+            specialFunds: [
+              { name: `s130`, value: 0, description: `` },
+              { name: `s136`, value: 0, description: `` },
+              { name: `s131`, value: 0, description: `` },
+              { name: `s133`, value: 0, description: `` },
+              { name: `s137`, value: 0, description: `` },
+              { name: `s132`, value: 0, description: `` },
+              { name: `s135`, value: 0, description: `` },
+              { name: `s137a`, value: 0, description: `` },
+              { name: `s139`, value: 0, description: `` },
+              { name: `s154`, value: 0, description: `` },
+              { name: `s600`, value: 0, description: `` },
+              { name: `s604`, value: 0, description: `` },
+              { name: `s608`, value: 0, description: `` },
+              { name: `s609`, value: 0, description: `` },
+              { name: `s610`, value: 0, description: `` },
+              { name: `s620`, value: 0, description: `` },
+              { name: `s903`, value: 0, description: `` },
+              { name: `s905`, value: 0, description: `` },
+              { name: "other", value: 0, description: `` }
             ],
-            specialTotal: 0,
-            
+            specialTotal: 0
           },
-          statesList: ["AK - Alaska",
+          statesList: [
+            "AK - Alaska",
             "AL - Alabama",
             "AR - Arkansas",
             "AS - American Samoa",
@@ -616,32 +709,31 @@
             "WA - Washington",
             "WI - Wisconsin",
             "WV - West Virginia",
-            "WY - Wyoming"],
-            districtsList: ["Blue Ridge", "Metro", "Catawba Valley", "Yadkin Valley", "Smokey Mountian", "Appalachian", "Uwharrie", "Northern Piedmont"  ]
+            "WY - Wyoming"
+          ],
+          districtsList: [
+            "Blue Ridge",
+            "Metro",
+            "Catawba Valley",
+            "Yadkin Valley",
+            "Smokey Mountian",
+            "Appalachian",
+            "Uwharrie",
+            "Northern Piedmont"
+          ]
         },
         methods: {
-            clearDistrict() {
-            this.district.d400 = 0
-            this.district.d401 = 0
-            this.district.d402 = 0
-            this.district.d403 = 0
+          clearDistrict() {
+            this.district.d400 = 0;
+            this.district.d401 = 0;
+            this.district.d402 = 0;
+            this.district.d403 = 0;
           },
           clearConference() {
-                  this.conference.c500 = 0
-                  this.conference.c501= 0
-                  this.conference.c502= 0
-                  this.conference.c503= 0
-                  this.conference.c504= 0
-                  this.conference.c505= 0
-                  this.conference.c506= 0
-                  this.conference.c513= 0
-                  this.conference.c514= 0
-                  this.conference.c512= 0
-                  this.conference.c515= 0
-                  this.conference.c516= 0
-                  this.conference.c517= 0
-                  this.conference.c519= 0
-                  this.conference.c520= 0
+            this.conference.c500 = 0;
+            this.conference.conferenceFunds.forEach(function(e) {
+              e.value = 0;
+            });
           },
           districtAuto() {
             this.autoCheckDistrict = true;
@@ -663,57 +755,95 @@
             this.selfCheckConference = true;
             this.clearConference();
           },
-          specialTrueYes(){
+          specialTrueYes() {
             this.specialTrue = true;
-            this.specialPayments.specialFunds.forEach(function (e) { e.value = 0 })
+            this.specialPayments.specialFunds.forEach(function(e) {
+              e.value = 0;
+            });
           },
           specialTrueNo() {
             this.specialTrue = false;
-            this.specialPayments.specialFunds.forEach(function (e) { e.value = 0 })
+            this.specialPayments.specialFunds.forEach(function(e) {
+              e.value = 0;
+            });
           },
-          exportPdf(){
-           
+          exportPdf() {
+            // Get HTML to print from element
+            const prtHtml = document.getElementById("printOnly").innerHTML;
+            console.log(prtHtml);
 
-          let pdfName = 'test';
-            var doc = new jsPDF();
-            doc.text(this.specialPayments.specialFunds.length, 10, 10);
-            doc.save(pdfName + '.pdf');
+            // Get all stylesheets HTML
+            let stylesHtml = "";
+            // for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+            //   stylesHtml += node.outerHTML;
+            // }
 
+            // Open the print window
+            const WinPrint = window.open(
+              "",
+              "",
+              "left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0"
+            );
 
+            WinPrint.document.write(
+              `<!DOCTYPE html><html><head>` +
+                stylesHtml +
+                `<\/head><body>` +
+                prtHtml +
+                `<\/body>
+                <\/html>`
+            );
 
-
-
-
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+            WinPrint.close();
           }
-          },
+        },
         computed: {
           districtTotal: function() {
-              if(this.district.d400 === "" || this.district.d401 === "" || this.district.d402 === "" || this.district.d403 === "" ){
-                return "NOT VALID - Please make sure only numbers are entered above"
-              }
-              var districtNumber =  this.district.d400 + this.district.d401 + this.district.d402 + this.district.d403
-              return districtNumber.toFixed(2)
-          },
-           conferenceTotal: function () {
-            if (this.conference.c500 === "" || this.conference.c501 === "" || this.conference.c502 === "" || this.conference.c503 === ""|| this.conference.c504 === "" || this.conference.c505 === "" || this.conference.c506 === "" || this.conference.c513 === "" || this.conference.c514 === "" || this.conference.c512 === "" || this.conference.c515 === "" || this.conference.c516 === "" || this.conference.c517 === "" || this.conference.c519 === "" || this.conference.c520 === ""){
-              return "NOT VALID - Please make sure only numbers are entered above"
+            if (
+              this.district.d400 === "" ||
+              this.district.d401 === "" ||
+              this.district.d402 === "" ||
+              this.district.d403 === ""
+            ) {
+              return "NOT VALID - Please make sure only numbers are entered above";
             }
-            var conferenceNumber = 0
-
-            conferenceNumber = this.conference.c500 + this.conference.c501 + this.conference.c502 + this.conference.c503 + this.conference.c504 + this.conference.c505 + this.conference.c506 + this.conference.c513 + this.conference.c514 + this.conference.c512 + this.conference.c515 + this.conference.c516 + this.conference.c517 + this.conference.c519 + this.conference.c520
-            return conferenceNumber.toFixed(2)
+            var districtNumber =
+              this.district.d400 +
+              this.district.d401 +
+              this.district.d402 +
+              this.district.d403;
+            return districtNumber.toFixed(2);
           },
-          specialTotal: function(){
-            let specialTotalAdd = 0
-            this.specialPayments.specialFunds.forEach(function (e) { specialTotalAdd += Number(e.value) })
-            return specialTotalAdd.toFixed(2)
+          conferenceTotal: function() {
+            // if (this.conference.c500 === "" || this.conference.c501 === "" || this.conference.c502 === "" || this.conference.c503 === "" || this.conference.c504 === "" || this.conference.c505 === "" || this.conference.c506 === "" || this.conference.c513 === "" || this.conference.c514 === "" || this.conference.c512 === "" || this.conference.c515 === "" || this.conference.c516 === "" || this.conference.c517 === "" || this.conference.c519 === "" || this.conference.c520 === "") {
+            //   return "NOT VALID - Please make sure only numbers are entered above"
+            // }
+            var conferenceNumber = 0;
+            var numberTest = 0;
+            this.conference.conferenceFunds.forEach(function(e) {
+              numberTest += Number(e.value);
+            });
+            conferenceNumber = this.conference.c500 + numberTest;
+            return conferenceNumber.toFixed(2);
+          },
+          specialTotal: function() {
+            let specialTotalAdd = 0;
+            this.specialPayments.specialFunds.forEach(function(e) {
+              specialTotalAdd += Number(e.value);
+            });
+            return specialTotalAdd.toFixed(2);
           },
           grandTotal: function() {
-            var grand = Number(this.conferenceTotal) + Number(this.districtTotal) + Number(this.specialTotal)
-            return grand.toFixed(2)
+            var grand =
+              Number(this.conferenceTotal) +
+              Number(this.districtTotal) +
+              Number(this.specialTotal);
+            return grand.toFixed(2);
           }
         }
-        
       });
     </script>
   </body>
